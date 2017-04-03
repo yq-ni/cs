@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:cs="http://www.cs.yq.com/cs" xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.cs.yq.com/cs
+       http://www.cs.yq.com/cs/cs.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    <context:property-placeholder location="cs-server.properties"/>
+
+    <bean id="otherRequestHandler" class="com.yq.cs.server.handlers.simplehandlers.OtherRequestHandler"/>
+
+    <cs:registry id="localhost:8080" ipAddr="127.0.0.1:8080" protocol="KRYO"/>
+    <cs:registry id="localhost:8081" ipAddr="127.0.0.1:8081" protocol="JDK"/>
+
+    <bean id="taskThreadPool" class="com.yq.cs.server.scheduling.TaskThreadPool"/>
+    <bean id="nettyServer" class="com.yq.cs.server.engine.NettyServer">
+        <constructor-arg name="taskThreadPool" ref="taskThreadPool"/>
+    </bean>
+
+    <cs:service interfaceName="com.yq.cs.services.HelloService" ref="helloService"/>
+    <bean id="helloService" class="com.yq.cs.services.iml.HelloServiceImpl"/>
+
+    <bean id="calculateService" class="com.yq.cs.services.iml.CalculateServiceImpl"/>
+    <cs:service interfaceName="com.yq.cs.services.CalculateService" ref="calculateService"/>
+
+</beans>
