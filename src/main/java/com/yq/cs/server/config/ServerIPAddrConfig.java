@@ -1,4 +1,4 @@
-package com.yq.cs.server;
+package com.yq.cs.server.config;
 
 import com.yq.cs.message.SerializeProtocol;
 import com.yq.cs.server.handlers.RequestHandler;

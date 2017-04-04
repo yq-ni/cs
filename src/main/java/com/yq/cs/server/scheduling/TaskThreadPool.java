@@ -1,6 +1,7 @@
 package com.yq.cs.server.scheduling;
 
 import com.yq.cs.message.struct.Request;
+import com.yq.cs.server.config.ServerConfigs;
 import com.yq.cs.server.engine.NettyServer;
 
 import java.net.SocketAddress;
@@ -11,10 +12,10 @@ import java.util.concurrent.*;
  */
 public class TaskThreadPool {
     private ExecutorService executorService;
+    private ServerConfigs serverConfigs;
 
-    public TaskThreadPool() {}
-
-    public void start() {
+    public TaskThreadPool(ServerConfigs serverConfigs) {
+        this.serverConfigs = serverConfigs;
         executorService = Executors.newCachedThreadPool();
     }
 
@@ -25,7 +26,7 @@ public class TaskThreadPool {
     public void handle(String remoteAddr, String localAddr, Request request) {
         executorService.submit(new Task(remoteAddr,
                 request,
-                NettyServer.getIPAddrConfigMap().get(localAddr).getResultHandler()));
+                serverConfigs.get(localAddr).getResultHandler()));
     }
 
 }

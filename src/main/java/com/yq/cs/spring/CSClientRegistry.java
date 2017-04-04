@@ -1,6 +1,6 @@
 package com.yq.cs.spring;
 
-import com.yq.cs.client.ClientIPAddrConfig;
+import com.yq.cs.client.config.ClientIPAddrConfig;
 import com.yq.cs.client.RemoteServices;
 import com.yq.cs.message.SerializeProtocol;
 import org.springframework.beans.BeansException;

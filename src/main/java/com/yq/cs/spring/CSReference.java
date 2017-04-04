@@ -1,7 +1,7 @@
 package com.yq.cs.spring;
 
 import com.yq.cs.client.RemoteServices;
-import com.yq.cs.client.ServiceProperty;
+import com.yq.cs.client.config.ServiceProperty;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.context.ApplicationContext;

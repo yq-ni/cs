@@ -1,6 +1,6 @@
 package com.yq.cs.client.engine;
 
-import com.yq.cs.client.ClientIPAddrConfig;
+import com.yq.cs.client.config.ClientIPAddrConfig;
 import io.netty.channel.ChannelFuture;
 
 /**

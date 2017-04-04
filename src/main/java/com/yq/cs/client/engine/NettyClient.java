@@ -1,8 +1,6 @@
 package com.yq.cs.client.engine;
 
-import com.yq.cs.client.ClientIPAddrConfig;
-import com.yq.cs.client.RemoteServices;
-import com.yq.cs.client.ServiceProperty;
+import com.yq.cs.client.config.ClientIPAddrConfig;
 import com.yq.cs.message.serialize.SelectCodec;
 import com.yq.cs.message.struct.Request;
 import io.netty.bootstrap.Bootstrap;

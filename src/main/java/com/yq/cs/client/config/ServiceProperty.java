@@ -1,4 +1,4 @@
-package com.yq.cs.client;
+package com.yq.cs.client.config;
 
 /**
  * Created by nyq on 2017/4/2.

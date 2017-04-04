@@ -1,7 +1,8 @@
 package com.yq.cs.spring;
 
 import com.yq.cs.message.SerializeProtocol;
-import com.yq.cs.server.ServerIPAddrConfig;
+import com.yq.cs.server.config.ServerConfigs;
+import com.yq.cs.server.config.ServerIPAddrConfig;
 import com.yq.cs.server.engine.NettyServer;
 import com.yq.cs.server.handlers.RequestHandler;
 import com.yq.cs.server.handlers.ResultHandler;
@@ -30,16 +31,16 @@ public class CSRegistry implements ApplicationContextAware {
             ipAddrConfig.setRequestHandler((RequestHandler) applicationContext.getBean(requestHandlerRef));
         }
         else {
-            ipAddrConfig.setRequestHandler(new SimpleRequestHandler((TaskThreadPool) applicationContext.getBean("taskThreadPool")));
+            ipAddrConfig.setRequestHandler(new SimpleRequestHandler(applicationContext.getBean(TaskThreadPool.class)));
         }
         if (resultHandlerRef != null && resultHandlerRef.length() != 0) {
             ipAddrConfig.setResultHandler((ResultHandler) applicationContext.getBean(resultHandlerRef));
         }
         else {
-            ipAddrConfig.setResultHandler(new SimpleResultHandler());
+            ipAddrConfig.setResultHandler(new SimpleResultHandler(applicationContext.getBean(NettyServer.class)));
         }
 
-        NettyServer.getIPAddrConfigMap().put(ipAddr, ipAddrConfig);
+        applicationContext.getBean(ServerConfigs.class).put(ipAddr, ipAddrConfig);
     }
 
     public String getIpAddr() {

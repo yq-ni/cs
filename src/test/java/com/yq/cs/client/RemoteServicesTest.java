@@ -1,5 +1,7 @@
 package com.yq.cs.client;
 
+import com.yq.cs.client.config.ClientIPAddrConfig;
+import com.yq.cs.client.config.ServiceProperty;
 import com.yq.cs.client.engine.OnReceiveListener;
 import com.yq.cs.message.SerializeProtocol;
 import com.yq.cs.services.CalculateService;
