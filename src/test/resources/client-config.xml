@@ -12,7 +12,7 @@
     <cs:reference interfaceName="com.yq.cs.services.HelloService" ipAddr="127.0.0.1:8080"/>
     <cs:reference interfaceName="com.yq.cs.services.CalculateService" ipAddr="127.0.0.1:8081"/>
 
-    <cs:clientRegistry id="localhost:8080" ipAddr="127.0.0.1:8080" protocol="KRYO" isLazy="true"/>
-    <cs:clientRegistry id="localhost:8081" ipAddr="127.0.0.1:8081" isLazy="true"/>
+    <cs:clientRegistry id="localhost:8080" ipAddr="127.0.0.1:8080" protocol="KRYO" isLazy="false"/>
+    <cs:clientRegistry id="localhost:8081" ipAddr="127.0.0.1:8081" isLazy="false"/>
 
 </beans>

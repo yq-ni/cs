@@ -1,5 +1,6 @@
 package com.yq.cs.client.engine;
 
+import com.yq.cs.client.ClientIPAddrConfig;
 import com.yq.cs.client.RemoteServices;
 import com.yq.cs.client.ServiceProperty;
 import com.yq.cs.message.serialize.SelectCodec;
@@ -47,7 +48,7 @@ public class NettyClient implements ClientEngine {
                 if (!channelWrapper.isConnect()) {
                     String[] host_port = ipAddr.split(":");
                     ChannelFuture f = bootstrap.connect(host_port[0], Integer.valueOf(host_port[1])).sync();
-                    new SelectCodec().select(RemoteServices.getIPAddrConfigMap().get(ipAddr).getProtocol(), f.channel().pipeline());
+                    new SelectCodec().select(channelWrapperMap.get(ipAddr).getConfig().getProtocol(), f.channel().pipeline());
                     channelWrapper.setConnect(true);
                     channelWrapper.setChannelFuture(f);
                 }
@@ -84,10 +85,12 @@ public class NettyClient implements ClientEngine {
     }
 
     @Override
-    public void update(ServiceProperty serviceProperty) {
+    public void registerConfig(ClientIPAddrConfig config) {
         synchronized (this) {
-            if (!channelWrapperMap.containsKey(serviceProperty.getIpAddr())) {
-                channelWrapperMap.put(serviceProperty.getIpAddr(), new ChannelWrapper());
+            if (!channelWrapperMap.containsKey(config.getIpAddr())) {
+                ChannelWrapper channelWrapper = new ChannelWrapper();
+                channelWrapper.setConfig(config);
+                channelWrapperMap.put(config.getIpAddr(), channelWrapper);
             }
         }
     }

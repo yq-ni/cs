@@ -54,7 +54,7 @@ public class RemoteServicesTest {
 //        CalculateService c = context.getBean(CalculateService.class);
 //        HelloService h = context.getBean(HelloService.class);
 //        parallelTest(h, c, 1000, 2);
-        asyncTest(context.getBean(RemoteServices.class), 100);
+        asyncTest(context.getBean(RemoteServices.class), 10000);
         context.destroy();
     }
 
@@ -77,15 +77,15 @@ public class RemoteServicesTest {
 
         ClientIPAddrConfig config1 = new ClientIPAddrConfig();
         config1.setLazy(false);
-        config1.setProtocol(Enum.valueOf(SerializeProtocol.class, "JDK"));
+        config1.setProtocol(Enum.valueOf(SerializeProtocol.class, "KRYO"));
         config1.setIpAddr(ipAddr8080);
         ClientIPAddrConfig config2 = new ClientIPAddrConfig();
         config2.setLazy(false);
         config2.setProtocol(Enum.valueOf(SerializeProtocol.class, "JDK"));
         config2.setIpAddr(ipAddr8081);
 
-        RemoteServices.getIPAddrConfigMap().put(config1.getIpAddr(), config1);
-        RemoteServices.getIPAddrConfigMap().put(config2.getIpAddr(), config2);
+        r.registerConfig(config1);
+        r.registerConfig(config2);
 
         CalculateService c = r.getProxy(CalculateService.class);
         HelloService h = r.getProxy(HelloService.class);

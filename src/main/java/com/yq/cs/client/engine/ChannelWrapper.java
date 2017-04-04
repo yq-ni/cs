@@ -1,5 +1,6 @@
 package com.yq.cs.client.engine;
 
+import com.yq.cs.client.ClientIPAddrConfig;
 import io.netty.channel.ChannelFuture;
 
 /**
@@ -8,6 +9,8 @@ import io.netty.channel.ChannelFuture;
 public class ChannelWrapper {
     private ChannelFuture channelFuture;
     private boolean isConnect;
+    private ClientIPAddrConfig config;
+
     public ChannelWrapper() {}
 
     public ChannelFuture getChannelFuture() {
@@ -24,5 +27,13 @@ public class ChannelWrapper {
 
     public void setConnect(boolean connect) {
         isConnect = connect;
+    }
+
+    public ClientIPAddrConfig getConfig() {
+        return config;
+    }
+
+    public void setConfig(ClientIPAddrConfig config) {
+        this.config = config;
     }
 }

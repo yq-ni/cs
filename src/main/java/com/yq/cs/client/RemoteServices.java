@@ -19,7 +19,7 @@ public class RemoteServices {
 
     private HashMap<String, Object> serviceProxyMap = new HashMap<>();
 
-    private static HashMap<String, ClientIPAddrConfig> configHMap = new HashMap<>();
+    private HashMap<String, ClientIPAddrConfig> configMap = new HashMap<>();
 
     private HashMap<String, ServiceProperty> servicePropertyMap = new HashMap<>();
 
@@ -58,13 +58,15 @@ public class RemoteServices {
     public void registerService(ServiceProperty serviceProperty) {
         servicePropertyMap.put(serviceProperty.getInterface().getName(), serviceProperty);
         serviceProxyMap.put(serviceProperty.getInterface().getName(), create(serviceProperty.getInterface()));
-        clientEngine.update(serviceProperty);
     }
 
-
+    public void registerConfig(ClientIPAddrConfig config) {
+        configMap.put(config.getIpAddr(), config);
+        clientEngine.registerConfig(config);
+    }
 
     public void connectNecessary() {
-        for (ClientIPAddrConfig config : configHMap.values()) {
+        for (ClientIPAddrConfig config : configMap.values()) {
             if (!config.isLazy()) {
                 try {
                     clientEngine.connect(config.getIpAddr());
@@ -74,14 +76,6 @@ public class RemoteServices {
                 }
             }
         }
-    }
-
-    public HashMap<String, ServiceProperty> getServicePropertyMap() {
-        return servicePropertyMap;
-    }
-
-    public static HashMap<String, ClientIPAddrConfig> getIPAddrConfigMap() {
-        return configHMap;
     }
 
     public void destroy() {

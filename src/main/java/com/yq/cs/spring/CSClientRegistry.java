@@ -22,16 +22,16 @@ public class CSClientRegistry implements ApplicationContextAware, ApplicationLis
 
     @Override
     public void onApplicationEvent(ApplicationEvent event) {
+        ClientIPAddrConfig config = new ClientIPAddrConfig();
+        config.setIpAddr(ipAddr);
+        config.setProtocol(Enum.valueOf(SerializeProtocol.class, protocol));
+        config.setLazy(isLazy);
+        ctx.getBean(RemoteServices.class).registerConfig(config);
         ctx.getBean(RemoteServices.class).connectNecessary();
     }
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        ClientIPAddrConfig config = new ClientIPAddrConfig();
-        config.setIpAddr(ipAddr);
-        config.setProtocol(Enum.valueOf(SerializeProtocol.class, protocol));
-        config.setLazy(isLazy);
-        RemoteServices.getIPAddrConfigMap().put(ipAddr, config);
         this.ctx = applicationContext;
     }
 

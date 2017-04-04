@@ -1,5 +1,6 @@
 package com.yq.cs.client.engine;
 
+import com.yq.cs.client.ClientIPAddrConfig;
 import com.yq.cs.client.ServiceProperty;
 import com.yq.cs.message.struct.Request;
 
@@ -10,6 +11,6 @@ public interface ClientEngine {
     void connect(String ipAddr) throws Exception;
     boolean send(String ipAddr, Request request, OnReceiveListener listener);
     Object getResult(String messageId) throws Exception;
-    void update(ServiceProperty serviceProperty);
+    void registerConfig(ClientIPAddrConfig config);
     void stop();
 }
